@@ -1,11 +1,14 @@
+import decimal
+
+
 def get_amt():
     while True:
         try:
-            amount = float(input("Enter the amount: "))
+            amount = decimal.Decimal(input("Enter the amount: "))
             if amount <= 0:
                 raise ValueError()
             return amount
-        except ValueError:
+        except decimal.InvalidOperation:
             print("Invalid Amount")
 
 
@@ -26,10 +29,26 @@ def get_currency(label):
 
 def converter(amount, source, target):
     exchange_rates = {
-        "INR": {"AED": 0.0435, "USD": 0.0119, "EUR": 0.0111},
-        "USD": {"INR": 84.98, "AED": 3.67, "EUR": 0.93},
-        "EUR": {"AED": 3.94, "USD": 1.07, "INR": 90.48},
-        "AED": {"INR": 22.97, "USD": 0.2723, "EUR": 0.2539},
+        "INR": {
+            "AED": decimal.Decimal("0.0435"),
+            "USD": decimal.Decimal("0.0119"),
+            "EUR": decimal.Decimal("0.0111"),
+        },
+        "USD": {
+            "INR": decimal.Decimal("84.98"),
+            "AED": decimal.Decimal("3.67"),
+            "EUR": decimal.Decimal("0.93"),
+        },
+        "EUR": {
+            "AED": decimal.Decimal("3.94"),
+            "USD": decimal.Decimal("1.07"),
+            "INR": decimal.Decimal("90.48"),
+        },
+        "AED": {
+            "INR": decimal.Decimal("22.97"),
+            "USD": decimal.Decimal("0.2723"),
+            "EUR": decimal.Decimal("0.2539"),
+        },
     }
 
     if source == target:
